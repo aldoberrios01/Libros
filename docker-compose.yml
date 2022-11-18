@@ -8,8 +8,9 @@ services:
   mysql:
     image: mysql:latest
     environment:
-      MYSQL_DATABASE: mysql_db
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - ./server/mysql:/docker-entrypoint-initdb.d
     networks:
       - global
 
@@ -23,23 +24,31 @@ services:
     links:
       - mysql
 
+  web_server:
+    depends_on:
+      - frontend
+      - books_service
+    build:
+      context: ./server/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "6969:80"
+
   frontend:
     build: 
       context: ./frontend
       dockerfile: Dockerfile
-    ports:
-      - '8069:5173'
     volumes:
       - ./frontend:/usr/src/frontend
 
-  laravel: 
-    image: php:latest
+  books_service: 
+    image: composer:latest
     depends_on: 
       - mysql
     links:
       - mysql
     volumes: 
-      - './backend/laravel/:/var/lib/mysql'
+      - './backend/books/:/var/lib/mysql'
     networks:
       - global
 
