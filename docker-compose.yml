@@ -1,0 +1,47 @@
+version: '3.8'
+
+networks:
+  global:
+
+services:
+  
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: mysql_db
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    networks:
+      - global
+
+  adminer: 
+    image: adminer:latest
+    restart: "no"
+    ports:
+      - '8777:8080'
+    depends_on: 
+      - mysql
+    links:
+      - mysql
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - '8069:5173'
+    volumes:
+      - ./frontend:/usr/src/frontend
+
+  laravel: 
+    image: php:latest
+    depends_on: 
+      - mysql
+    links:
+      - mysql
+    volumes: 
+      - './backend/laravel/:/var/lib/mysql'
+    networks:
+      - global
+
+
+
