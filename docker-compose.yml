@@ -2,6 +2,7 @@ version: '3.8'
 
 networks:
   global:
+    driver: bridge
 
 services:
   
@@ -23,9 +24,14 @@ services:
       - mysql
     links:
       - mysql
+    networks:
+      - global
 
   web_server:
     depends_on:
+      - frontend
+      - books_service
+    links:
       - frontend
       - books_service
     build:
@@ -33,6 +39,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "6969:80"
+    volumes:
+      - ./backend/books:/var/www/books
+    networks:
+      - global
 
   frontend:
     build: 
@@ -40,15 +50,19 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./frontend:/usr/src/frontend
+    networks:
+      - global
 
   books_service: 
-    image: composer:latest
+    build:
+      context: ./backend/books
+      dockerfile: Dockerfile
     depends_on: 
       - mysql
     links:
       - mysql
-    volumes: 
-      - './backend/books/:/var/lib/mysql'
+    volumes:
+      - ./backend/books:/var/www/html
     networks:
       - global
 
