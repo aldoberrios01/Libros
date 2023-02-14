@@ -17,6 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hello', function () {
+Route::get('/books', function () {
     return response()->json(['data' =>'Hello']);
 });
