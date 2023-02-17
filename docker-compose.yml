@@ -9,7 +9,8 @@ services:
   mysql:
     image: mysql:latest
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      #MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD: '123qwe'
     volumes:
       - ./server/mysql:/docker-entrypoint-initdb.d
     networks:
@@ -28,6 +29,7 @@ services:
       - global
 
   web_server:
+    tty: true
     depends_on:
       - frontend
       - books_service
@@ -40,16 +42,18 @@ services:
     ports:
       - "6969:80"
     volumes:
-      - ./backend/books:/var/www/books
+      - ./backend/books:/var/www/html
     networks:
       - global
-
+    
   frontend:
+    stdin_open: true
     build: 
       context: ./frontend
       dockerfile: Dockerfile
     volumes:
       - ./frontend:/usr/src/frontend
+      - /usr/src/frontend/node_modules
     networks:
       - global
 
@@ -65,6 +69,5 @@ services:
       - ./backend/books:/var/www/html
     networks:
       - global
-
-
-
+    #env_file:
+    #  - backend/books/.env

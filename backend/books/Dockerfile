@@ -1,5 +1,7 @@
 FROM php:8.1-fpm
 
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -15,9 +17,8 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 RUN rm -rf /var/www/html/index.html
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+WORKDIR /var/www/html
 
-WORKDIR /var/www/books
-COPY . .
+COPY composer* ./
 
-RUN composer install
+CMD [ "/bin/bash", "-c", "./run.sh" ]
