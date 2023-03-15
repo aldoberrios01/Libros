@@ -21,5 +21,6 @@ WORKDIR /var/www/html
 
 COPY composer* ./
 
-CMD ["sed", "-i", "-e", "'s/\r$//'", "run.sh"]
-ENTRYPOINT [ "/bin/bash", "-c", "./run.sh" ]
+COPY run.sh /root
+RUN sed -i -e 's/\r$//' /root/run.sh
+ENTRYPOINT [ "/bin/bash", "-c", "/root/run.sh" ]
