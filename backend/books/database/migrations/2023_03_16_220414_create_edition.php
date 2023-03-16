@@ -17,11 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('released_at');
-            $table->int('id_editorial');
-            $table->foreign('id_editorial')->references('id')->on('editorial');
-            $table->int('id_book');
-            $table->foreign('id_book')->references('id')->on('books');
-            $table->timestamps();
+            $table->foreignId('editorial_id');
+            $table->foreignId('book_id');
         });
     }
 
