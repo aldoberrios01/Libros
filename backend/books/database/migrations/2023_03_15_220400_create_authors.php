@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('email');
             $table->date('deceased_at')->nullable();
+            $table->date('birthday_at');
             $table->timestamps();
         });
     }
