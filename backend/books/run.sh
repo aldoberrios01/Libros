@@ -1,7 +1,7 @@
 #! /bin/bash
 
 composer install
-php artisan migrate
+php artisan migrate:refresh --seed
 php-fpm
 #php artisan serve
 #cd public
