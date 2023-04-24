@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/books', function () {
-    return response()->json(['data' =>'Hello']);
+    return response()->json(\App\Models\Book::all());
 });

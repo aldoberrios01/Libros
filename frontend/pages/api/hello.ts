@@ -9,5 +9,11 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  fetch('http://web_server/api-books/books')//'https://jsonplaceholder.typicode.com/posts')
+  .then( e => e.json() )
+  .then( e => {
+    console.log(e);
+    res.status(200).json(e)
+  } )
+  .catch(e => console.error(e)) 
 }
