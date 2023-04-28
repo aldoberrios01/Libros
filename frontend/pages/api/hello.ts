@@ -11,9 +11,6 @@ export default function handler(
 ) { 
   fetch('http://books_service:8000/api/books')//'https://jsonplaceholder.typicode.com/posts')
   .then( e => e.json() )
-  .then( e => {
-    console.log(e);
-    res.status(200).json(e)
-  } )
-  .catch(e => console.error(e)) 
+  .then( e => res.status(200).json(e) )
+  .catch( e => res.status(500).json(e) ) 
 }
