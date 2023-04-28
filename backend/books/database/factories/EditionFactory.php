@@ -18,7 +18,8 @@ class EditionFactory extends Factory
     {
         return [
             'name' => $this->faker->text(15),
-            'released_at' => $this->faker->date()
+            'released_at' => $this->faker->date(),
+            'image_path' => $this->faker->imageUrl()
         ];
     }
 }

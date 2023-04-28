@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('editions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image_path');
             $table->string('released_at');
             $table->foreignId('editorial_id');
             $table->foreignId('book_id');
