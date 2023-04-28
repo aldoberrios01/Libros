@@ -8,8 +8,8 @@ type Data = {
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
-) {
-  fetch('http://web_server/api-books/books')//'https://jsonplaceholder.typicode.com/posts')
+) { 
+  fetch('http://books_service:8000/api/books')//'https://jsonplaceholder.typicode.com/posts')
   .then( e => e.json() )
   .then( e => {
     console.log(e);

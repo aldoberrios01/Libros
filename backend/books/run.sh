@@ -2,7 +2,9 @@
 
 composer install
 php artisan migrate:refresh --seed
-php-fpm
+php artisan serve --host=0.0.0.0 
+
+#php-fpm
 #php artisan serve
 #cd public
 #php -a
