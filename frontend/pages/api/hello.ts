@@ -1,16 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { BooksAPI } from '@/libs/apis/BooksAPI'
+import { AxiosResponse } from 'axios';
 
-type Data = {
-  name: string
-}
-
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) { 
-  fetch('http://books_service:8000/api/books')//'https://jsonplaceholder.typicode.com/posts')
-  .then( e => e.json() )
-  .then( e => res.status(200).json(e) )
-  .catch( e => res.status(500).json(e) ) 
+  const response:AxiosResponse = await BooksAPI.axios.get('/api/books');
+  res.status(200).json(response.data);
 }
