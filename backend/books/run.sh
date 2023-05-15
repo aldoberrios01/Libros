@@ -1,12 +1,8 @@
 #! /bin/bash
 
-composer install
-php artisan migrate:refresh --seed
-php artisan serve --host=0.0.0.0 
+if [ ! -d "./vendor" ]; then
+    composer install
+fi
 
-#php-fpm
-#php artisan serve
-#cd public
-#php -a
-#php index.php
-#tail -F anything
+php artisan migrate:refresh --seed
+php artisan serve --host=0.0.0.0
