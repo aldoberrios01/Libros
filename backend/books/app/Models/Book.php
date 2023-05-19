@@ -24,4 +24,16 @@ class Book extends Model
             'book_genres'
         );
     }
+
+    public function editions()
+    {
+        return $this->hasMany(
+            Edition::class
+        );
+    }
+
+    public function latestEdition()
+    {
+        return $this->hasOne(Edition::class)->latest();
+    }
 }

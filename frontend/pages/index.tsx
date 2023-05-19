@@ -1,7 +1,7 @@
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const books = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hello`);
@@ -12,6 +12,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 export default function Home({ data }: any) {
+  useEffect(() => {
+    console.log(data);
+  }, []);
 
   return (
     <>
@@ -22,7 +25,22 @@ export default function Home({ data }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Button>Hello</Button>
+        <Container>
+          <Row>
+            {data.map(({ id, title, description, latest_edition }, index) => (
+              <Col md={3} key={id}>
+                <Card>
+                  <Card.Img variant="top" src={latest_edition.image_path} />
+                  <Card.Body>
+                    <Card.Title>{title}</Card.Title>
+                    <hr />
+                    <Card.Text>{description}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
       </main>
     </>
   );

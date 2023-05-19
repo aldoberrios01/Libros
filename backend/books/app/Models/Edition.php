@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Edition extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
-
+    
     public function editorial()
     {
         return $this->belongsTo(Editorial::class);
