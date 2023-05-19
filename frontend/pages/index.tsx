@@ -27,7 +27,7 @@ export default function Home({ data }: any) {
       <main>
         <Container>
           <Row>
-            {data.map(({ id, title, description, latest_edition }, index) => (
+            {data.data.map(({ id, title, description, latest_edition }, index) => (
               <Col md={3} key={id}>
                 <Card>
                   <Card.Img variant="top" src={latest_edition.image_path} />
