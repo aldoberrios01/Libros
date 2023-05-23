@@ -29,7 +29,7 @@ export default function Home({ data }: any) {
           <Row>
             {data.data.map(({ id, title, description, latest_edition }, index) => (
               <Col md={3} key={id}>
-                <Card>
+                <Card className="h-100">
                   <Card.Img variant="top" src={latest_edition.image_path} />
                   <Card.Body>
                     <Card.Title>{title}</Card.Title>
